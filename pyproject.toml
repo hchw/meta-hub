@@ -1,0 +1,22 @@
+[project]
+name = "meta-hub"
+version = "0.0.1"
+description = "Digital-human livestream orchestrator (single machine)"
+requires-python = ">=3.10"
+dependencies = [
+    "grpcio",
+    "nvidia-audio2face-3d>=1.3",
+    "numpy",
+    "soundfile",
+    "python-osc",
+]
+
+[project.scripts]
+meta-hub = "meta_hub.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/meta_hub"]
