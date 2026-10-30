@@ -31,7 +31,8 @@ def animate(
     frames=None,
 ) -> dict:
     """Drive the renderer from a wav (or pre-fetched ``frames``); return diagnostics."""
-    sender = VmcSender(settings.vmc_host, settings.vmc_port) if send_vmc else None
+    sender = VmcSender(settings.vmc_host, settings.vmc_port,
+                              profile=settings.vmc_blend_profile) if send_vmc else None
     fps = fps or settings.vmc_fps
     min_dt = (1.0 / fps) if fps and fps > 0 else 0.0
     clock: SampleClock | None = None
@@ -54,7 +55,8 @@ def animate(
         lag = clock.sleep_until_sample(round(t_audio * settings.a2f_sample_rate))
         max_lag_ms = max(max_lag_ms, lag * 1000.0)
         if sender:
-            sender.send(arkit_to_vrm(arkit, mouth_gain=settings.vmc_mouth_gain))
+            sender.send(arkit_to_vrm(arkit, mouth_gain=settings.vmc_mouth_gain,
+                                       profile=settings.vmc_blend_profile))
         last_sent_t = t_audio
         n += 1
     if sender and reset_neutral:

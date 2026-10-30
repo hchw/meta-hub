@@ -9,10 +9,12 @@ dependencies = [
     "numpy",
     "soundfile",
     "python-osc",
+    "mcp>=1.9",
 ]
 
 [project.scripts]
 meta-hub = "meta_hub.cli:main"
+avatar-mcp = "meta_hub.avatar_mcp.server:main"
 
 [build-system]
 requires = ["hatchling"]
